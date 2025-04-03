@@ -4,3 +4,7 @@ node_modules/
 # Python
 venv/
 .env
+
+# ML
+mlruns/
+results/
