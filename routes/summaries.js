@@ -32,18 +32,20 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 // Get all summaries for logged-in user
-router.get('/', authenticateToken, async (req, res) => {
+// GET /summaries (get all summaries for the logged-in user)
+router.get("/", authenticateToken, async (req, res) => {
     const userId = req.user.userId;
 
     try {
         const result = await pool.query(
-        'SELECT * FROM summaries WHERE user_id = $1 ORDER BY created_at DESC',
+        "SELECT original_text, summary_text, created_at FROM summaries WHERE user_id = $1 ORDER BY created_at DESC",
         [userId]
         );
-        res.json(result.rows);
+
+        res.json({ summaries: result.rows });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: 'Failed to fetch summaries' });
+        res.status(500).json({ error: "Failed to fetch summaries" });
     }
 });
 
