@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from transformers import T5Tokenizer, T5ForConditionalGeneration
-# import mlflow.pytorch
-# import torch
+import mlflow.pytorch
+import torch
 
 app = Flask(__name__)
 
@@ -9,10 +9,10 @@ app = Flask(__name__)
 tokenizer = T5Tokenizer.from_pretrained("t5-small")
 
 # model = T5ForConditionalGeneration.from_pretrained("../results/run_02/checkpoint-750")
-model = T5ForConditionalGeneration.from_pretrained("results/run_02/checkpoint-750") # for docker
+# model = T5ForConditionalGeneration.from_pretrained("results/run_02/checkpoint-750") # for docker
 
-# mlflow.set_tracking_uri("https://dagshub.com/achrafhoteit/AIDE505-final-project.mlflow")
-# model = mlflow.pytorch.load_model("runs:/d7a51b9ad1154324a9476a47b3875a4d/summarizer_model")
+mlflow.set_tracking_uri("https://dagshub.com/achrafhoteit/AIDE505-final-project.mlflow")
+model = mlflow.pytorch.load_model("runs:/d7a51b9ad1154324a9476a47b3875a4d/summarizer_model")
 
 # model = mlflow.pytorch.load_model("../mlruns/403432388898420352/5d30ba2385b44f2887e00ca84247c0fd/artifacts/summarizer_model")
 

@@ -1,6 +1,6 @@
 flask
-# torch
+torch
 transformers
-# mlflow
+mlflow
 sentencepiece
 numpy
