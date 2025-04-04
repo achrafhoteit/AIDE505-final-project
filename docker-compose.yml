@@ -11,5 +11,31 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  flask:
+    build: ./flask
+    ports:
+      - "5050:5000"
+    depends_on:
+      - postgres
+    # volumes:
+    # - ./mlruns:/app/mlruns  # <== mount host's mlruns into container
+    volumes:
+      - ./results/run_02/checkpoint-750:/app/results/run_02/checkpoint-750
+
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - flask
+      - postgres
+    env_file:
+      - .env
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80" # React app served on port 3000
+
 volumes:
   pgdata:

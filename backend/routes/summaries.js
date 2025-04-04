@@ -12,7 +12,7 @@ router.post('/', authenticateToken, async (req, res) => {
 
     try {
         // Call the Flask API
-        const response = await axios.post('http://127.0.0.1:5000/summarize', {
+        const response = await axios.post('http://flask:5000/summarize', {
         text: original_text
         });
 
