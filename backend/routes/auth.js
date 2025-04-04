@@ -31,7 +31,9 @@ try {
     const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
     const user = result.rows[0];
 
-    if (!user) return res.status(400).json({ error: 'User not found' });
+    if (!user) {
+        return res.status(400).json({ error: 'User not found' });
+    }
 
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ error: 'Invalid credentials' });
